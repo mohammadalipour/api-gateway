@@ -1,7 +1,7 @@
 services:
   api-gateway:
     build:
-      context: .
+      context: ./api-gateway
       dockerfile: Dockerfile
     volumes:
       - ./api-gateway:/var/www/html

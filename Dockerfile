@@ -20,7 +20,7 @@ COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
 # Copy the application code
-COPY ./api-gateway .
+COPY . .
 
 # Install dependencies via Composer
 RUN composer install --no-interaction
