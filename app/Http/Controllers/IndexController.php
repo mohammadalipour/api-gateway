@@ -13,6 +13,7 @@ class IndexController extends Controller
     {
         $response = [
             'product-service' => $this->productServiceHealthCheck(),
+            'user-service' => $this->userServiceHealthCheck(),
         ];
 
         return response()->json($response, 200);
@@ -22,6 +23,16 @@ class IndexController extends Controller
     {
         $productServiceUrl = env('PRODUCT_SERVICE_URL');
         $response = Http::post("$productServiceUrl/api/health-check");
+        if ($response->failed()) {
+            return self::DISCONNECTED;
+        }
+        return self::CONNECTED;
+    }
+
+    private function userServiceHealthCheck(): string
+    {
+        $userServiceUrl = env('USER_SERVICE_URL');
+        $response = Http::post("$userServiceUrl/health-check");
         if ($response->failed()) {
             return self::DISCONNECTED;
         }
