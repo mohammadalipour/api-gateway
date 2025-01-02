@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
+use Throwable;
 
 class IndexController extends Controller
 {
@@ -21,21 +23,29 @@ class IndexController extends Controller
 
     private function productServiceHealthCheck(): string
     {
-        $productServiceUrl = env('PRODUCT_SERVICE_URL');
-        $response = Http::post("$productServiceUrl/api/health-check");
-        if ($response->failed()) {
+        try {
+            $productServiceUrl = env('PRODUCT_SERVICE_URL');
+            $response = Http::post("$productServiceUrl/api/health-check");
+            if ($response->failed()) {
+                return self::DISCONNECTED;
+            }
+            return self::CONNECTED;
+        } catch (ConnectionException|Throwable $exception) {
             return self::DISCONNECTED;
         }
-        return self::CONNECTED;
     }
 
     private function userServiceHealthCheck(): string
     {
-        $userServiceUrl = env('USER_SERVICE_URL');
-        $response = Http::post("$userServiceUrl/health-check");
-        if ($response->failed()) {
+        try {
+            $userServiceUrl = env('USER_SERVICE_URL');
+            $response = Http::post("$userServiceUrl/health-check");
+            if ($response->failed()) {
+                return self::DISCONNECTED;
+            }
+            return self::CONNECTED;
+        } catch (ConnectionException|Throwable $exception) {
             return self::DISCONNECTED;
         }
-        return self::CONNECTED;
     }
 }
