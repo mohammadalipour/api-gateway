@@ -8,7 +8,7 @@ use Throwable;
 
 class IndexController extends Controller
 {
-    const DISCONNECTED = 'discounted';
+    const DISCONNECTED = 'disconnected';
     const CONNECTED = 'connected';
 
     public function index()
@@ -16,6 +16,8 @@ class IndexController extends Controller
         $response = [
             'product-service' => $this->productServiceHealthCheck(),
             'user-service' => $this->userServiceHealthCheck(),
+            'order-service' => $this->orderServiceHealthCheck(),
+            'payment-service' => $this->paymentServiceHealthCheck(),
         ];
 
         return response()->json($response, 200);
@@ -47,5 +49,15 @@ class IndexController extends Controller
         } catch (ConnectionException|Throwable $exception) {
             return self::DISCONNECTED;
         }
+    }
+
+    private function orderServiceHealthCheck(): string
+    {
+        return self::DISCONNECTED;
+    }
+
+    private function paymentServiceHealthCheck(): string
+    {
+        return self::DISCONNECTED;
     }
 }
