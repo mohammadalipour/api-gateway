@@ -15,7 +15,13 @@
 
 $router->get('/', 'IndexController@index');
 
-$router->group(['prefix' => 'api/v1'], function () use ($router) {
-    $router->get('/products', 'ProductController@index');
-    $router->get('/products/{id}', 'ProductController@show');
+$router->group(['prefix' => 'api/v1/products'], function () use ($router) {
+    $router->get('/', 'ProductController@list');
+    $router->get('/{id}', 'ProductController@index');
+});
+
+$router->group(['prefix' => 'api/v1/user'], function () use ($router) {
+    $router->post('/auth', 'UserController@auth');
+    $router->post('/signup', 'UserController@signup');
+    $router->get('/profile', 'UserController@profile');
 });
