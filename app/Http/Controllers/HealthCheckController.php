@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\HealthCheck\HttpHealthCheckInterface;
+use App\Http\Controllers\HealthCheck\InventoryServiceHealthCheck;
 use App\Http\Controllers\HealthCheck\OrderServiceHealthCheck;
 use App\Http\Controllers\HealthCheck\PaymentServiceHealthCheck;
 use App\Http\Controllers\HealthCheck\ProductServiceHealthCheck;
@@ -20,6 +21,7 @@ class HealthCheckController extends Controller
             OrderServiceHealthCheck::class,
             PaymentServiceHealthCheck::class,
             ShoppingServiceHealthCheck::class,
+            InventoryServiceHealthCheck::class,
         ];
 
         $response = [];
