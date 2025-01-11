@@ -13,7 +13,7 @@
 |
 */
 
-$router->get('/', 'IndexController@index');
+$router->get('/', 'HealthCheckController@index');
 
 $router->group(['prefix' => 'api/v1/products'], function () use ($router) {
     $router->get('/', 'ProductController@list');
