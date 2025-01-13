@@ -8,7 +8,7 @@ use Throwable;
 
 class UserServiceHealthCheck implements HttpHealthCheckInterface
 {
-    private string $serviceName = 'User Service';
+    private string $serviceName = 'User Account Service';
 
     public function check(): string
     {
